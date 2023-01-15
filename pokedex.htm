@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pokedex</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#pokemon-list">Pokemon List</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section id="home">
+      <h1>Welcome to the Pokedex</h1>
+      <p>This website uses the PokeAPI to provide information about all the pokemons.</p>
+    </section>
+    <section id="pokemon-list">
+      <h2>Pokemon List</h2>
+      <ul id="pokemons"></ul>
+    </section>
+  </main>
+  <script>
+    // Fetch pokemons from the PokeAPI
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+      .then(response => response.json())
+      .then(data => {
+        // Get the list of pokemons from the API
+        const pokemons = data.results;
+        
+        // Get the pokemons element from the HTML
+        const pokemonsElement = document.getElementById('pokemons');
+        
+        // Loop through the pokemons and add them to the HTML
+        pokemons.forEach(pokemon => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${pokemon.url}">${pokemon.name}</a>`;
+          pokemonsElement.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
